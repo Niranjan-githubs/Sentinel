@@ -4,13 +4,13 @@
 
 It uses a robust DOM-pruning strategy to compress HTML into a security-relevant footprint and emits strict, executable ReAct JSON payloads to interface with the browser.
 
-## 🚀 Live Interactive Demo
+##  Live Interactive Demo
 Try the model directly without any local setup via our Hugging Face Space:
 🔗 **[SENTINEL Interactive Demo](https://huggingface.co/spaces/niranjan2777/Sentinel-web-pentesting)**
 
 > **Note:** The Hugging Face Space runs on CPU-only free tier hardware. Inference will be slow and typically takes **1-2 minutes** per turn. For real-time autonomous execution, we highly recommend running it locally via Ollama.
 
-## 🧠 Model Weights
+##  Model Weights
 The fine-tuned model weights are available on Hugging Face:
 * **Base Model Tensors (LoRA Adapter):** [niranjan2777/SENTINEL](https://huggingface.co/niranjan2777/SENTINEL)
 * **Quantized GGUF (Recommended for Consumer Hardware):** [niranjan2777/SENTINEL-q5_k_m-GGUF](https://huggingface.co/niranjan2777/SENTINEL-q5_k_m-GGUF)
