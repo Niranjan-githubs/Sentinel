@@ -1,0 +1,10 @@
+extends: ../default.yaml
+
+target:
+  base_url: http://localhost:3000
+  name: juice-shop
+goal: AUTHENTICATED
+budgets:
+  max_iterations: 30
+  max_model_calls: 60
+  max_wall_seconds: 420

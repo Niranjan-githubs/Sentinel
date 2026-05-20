@@ -1,0 +1,46 @@
+target:
+  base_url: http://localhost:3000
+  name: juice-shop
+
+goal: AUTHENTICATED
+
+budgets:
+  max_iterations: 50
+  max_model_calls: 100
+  max_wall_seconds: 900        # 15 min — CPU-offloaded inference is slow on 4GB VRAM
+
+model:
+  # Local Ollama serving the fine-tuned SENTINEL adapter (Q5_K_M GGUF).
+  # See model/Modelfile. RTX 3050 Laptop 4GB — model is 5.7GB so ~50% CPU-offloaded.
+  endpoint: http://localhost:11434/v1
+  api_key: ollama
+  name: sentinel
+  temperature: 0.0      # match SFT-time greedy decoding for stable JSON output
+  top_p: 0.9
+  max_tokens: 256       # JSON output is ~150 tokens; 256 is plenty, matches num_predict
+  request_timeout_s: 180.0   # 3 min — allows for slow CPU-offloaded layers
+
+pruning:
+  dom_token_cap: 800    # reduced from 1500 — keeps total input under 1700 / 2048 ctx
+  history_window: 3     # reduced from 5 — saves ~450 tokens per call
+  keep_attrs: [action, src, href, value, name, id, onclick, formaction, type, method, placeholder]
+
+fallback:
+  stuck_threshold: 3
+  same_target_attempts: 5
+  json_parse_retries: 1
+
+cache:
+  prefix: true
+  dom_lru_size: 256
+  outcome_db: artifacts/outcome.sqlite
+
+browser:
+  headless: true
+  user_agent: "Mozilla/5.0 (compatible; PentestAgent/0.1)"
+  navigation_timeout_ms: 15000
+
+observability:
+  log_dir: artifacts/runs
+  screenshots: true
+  asciinema: false

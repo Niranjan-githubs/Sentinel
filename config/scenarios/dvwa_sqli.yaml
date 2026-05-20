@@ -1,0 +1,31 @@
+extends: ../default.yaml
+
+target:
+  base_url: http://localhost:8080
+  name: dvwa
+
+# ─── SUCCESS CRITERIA ─────────────────────────────────────────────────────────
+# The agent must autonomously reach one of two victory conditions:
+#
+#   1. LOGGED IN — SQLi bypass on /login.php → security cookie set → index.php
+#      e.g. username: admin'-- or ' OR '1'='1'--
+#
+#   2. DATA EXFILTRATED — SQLi on /vulnerabilities/sqli/?id= → user rows dumped
+#      e.g. 1 UNION SELECT user,password FROM users-- → "First name:" in body
+#
+# Whichever fires first wins. The agent gets no hints, no creds, no cheats.
+# ──────────────────────────────────────────────────────────────────────────────
+goal: DVWA_PWNED
+
+budgets:
+  max_iterations: 50
+  max_model_calls: 100
+  max_wall_seconds: 600
+
+# Show the browser — lets you watch the attack live
+browser:
+  headless: false
+
+observability:
+  log_dir: artifacts/runs
+  screenshots: true
